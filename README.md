@@ -9,7 +9,7 @@ Professor: Maurício Pasetto de Freitas
 
 <img width="1920" height="2595" alt="screencapture-127-0-0-1-5500-mural-html-2025-03-28-13_25_28" src="https://github.com/user-attachments/assets/c6470c14-c10b-4a63-ba6e-12963baaef16" />
 
-<img width="1920" height="1528" alt="screencapture-127-0-0-1-5500-index-html-2025-03-28-13_25_04" src="https://github.com/user-attachments/assets/1c9a3baf-b8ac-44ea-9e30-e09a2756bd3f" />
+<img width="1920" height="1146" alt="screencapture-127-0-0-1-5500-events-html-2025-03-28-13_25_50" src="https://github.com/user-attachments/assets/a11613bc-b375-43bb-9a48-d6d09d2df400" />
 
 ---
 

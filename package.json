@@ -14,18 +14,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AS-Gaspar/how_v.git"
+    "url": "git+https://github.com/alexandresilvestri/ParoquiaBombinhas.git"
   },
-  "author": "AS-Gaspar",
+  "author": "Alexandre Silvestri",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/AS-Gaspar/how_v/issues"
-  },
-  "homepage": "https://github.com/AS-Gaspar/how_v#readme",
+  "homepage": "https://github.com/alexandresilvestri/ParoquiaBombinhas",
   "dependencies": {
+    "@netlify/blobs": "^10.7.0",
+    "@netlify/functions": "^5.1.2",
     "bootstrap": "^5.3.3",
     "express": "^5.1.0",
     "flatpickr": "^4.6.13",
+    "serverless-http": "^4.0.0",
     "uuid": "^11.1.0"
   },
   "devDependencies": {

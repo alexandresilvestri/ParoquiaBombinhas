@@ -6,7 +6,7 @@ let eventos = []
 
 async function fetchAndRenderEvents() {
   try {
-    const response = await fetch('/admin/events')
+    const response = await fetch('/api/events')
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)
     }
@@ -39,7 +39,7 @@ document.getElementById("eventForm").addEventListener("submit", async function (
   }
 
   try {
-    const response = await fetch('/admin/events', {
+    const response = await fetch('/api/events', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',  
@@ -151,7 +151,7 @@ function renderEventos() {
 
  async function removerEvento(id) {
   try {
-    const response = await fetch(`/admin/events/${id}`, {
+    const response = await fetch(`/api/events/${id}`, {
       method: 'DELETE'
     })
 

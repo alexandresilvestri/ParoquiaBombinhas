@@ -1,0 +1,47 @@
+[build]
+  command = "npm run build"
+  publish = "public"
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+  included_files = ["src/data/**"]
+
+# Page routes — clean URLs mapped to static HTML files
+[[redirects]]
+  from = "/"
+  to = "/views/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/mais"
+  to = "/views/mais.html"
+  status = 200
+
+[[redirects]]
+  from = "/events"
+  to = "/views/events.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin/login"
+  to = "/views/login.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin/dashboard"
+  to = "/views/admin.html"
+  status = 200
+
+# API routes — forwarded to the serverless function
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+  force = true
+
+# 404 fallback
+[[redirects]]
+  from = "/*"
+  to = "/views/404.html"
+  status = 404

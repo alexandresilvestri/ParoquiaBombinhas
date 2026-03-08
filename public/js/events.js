@@ -6,7 +6,7 @@ async function fetchAndDisplayEvents() {
     eventList.innerHTML = '<li class="list-group-item">Carregando eventos...</li>'
 
     try {
-        const response = await fetch('/admin/events')
+        const response = await fetch('/api/events')
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`)
         }

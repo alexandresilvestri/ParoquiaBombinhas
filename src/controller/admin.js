@@ -1,51 +1,6 @@
 const path = require("path")
-const fs = require("fs/promises")
-const dataPath = path.join(__dirname, "../data/admin.json") 
-const eventsDataPath = path.join(__dirname, "../data/events.json") 
 const { v4: uuidv4 } = require("uuid")
-
-async function getStoredCredentials() {
-  try {
-    const raw = await fs.readFile(dataPath, "utf-8")
-    return JSON.parse(raw)
-  } catch (error) {
-    console.error("Erro ao ler credenciais:", error)
-    return null 
-  }
-}
-
-async function getStoredEvents() {
-  try {
-    const rawFileContent = await fs.readFile(eventsDataPath, { encoding: "utf-8" })
-
-    if (!rawFileContent.trim()) {
-      console.log("File is empty or whitespace, returning empty array.")
-      return []
-    }
-
-    const parsedEvents = JSON.parse(rawFileContent)
-    return parsedEvents
-
-  } catch (error) {
-    console.error("Error reading events file:", error)
-
-    if (error.code === "ENOENT") {
-      await fs.writeFile(eventsDataPath, JSON.stringify([], null, 2))
-      return []
-    }
-
-    return []
-  }
-}
-
-async function storeEvents(events) {
-  try {
-    await fs.writeFile(eventsDataPath, JSON.stringify(events, null, 2))
-  } catch (error) {
-    console.error("Error writing events file:", error)
-    throw new Error("Failed to save events.")
-  }
-}
+const storage = require("../storage")
 
 exports.renderLogin = (req, res) => {
   res.sendFile(path.join(__dirname, "../../public/views/login.html"))
@@ -53,7 +8,7 @@ exports.renderLogin = (req, res) => {
 
 exports.handleLogin = async (req, res) => {
   const { username, password } = req.body
-  const storedCredentials = await getStoredCredentials()
+  const storedCredentials = await storage.getCredentials()
 
   if (!storedCredentials) {
     return res
@@ -85,10 +40,10 @@ exports.addEvent = async (req, res) => {
   }
 
   try {
-    const storedEvents = await getStoredEvents()
+    const storedEvents = await storage.getEvents()
     newEvent.id = uuidv4()
     storedEvents.push(newEvent)
-    await storeEvents(storedEvents)
+    await storage.setEvents(storedEvents)
 
     res.status(201).json({ message: "Evento adicionado com sucesso!", event: newEvent})
   } catch (error) {
@@ -99,7 +54,7 @@ exports.addEvent = async (req, res) => {
 
 exports.getEvents = async (req, res) => {
   try {
-    const storedEvents = await getStoredEvents()
+    const storedEvents = await storage.getEvents()
     res.status(200).json(storedEvents)
   } catch (error) {
     console.error("Error in getEvents handler:", error)
@@ -110,7 +65,7 @@ exports.getEvents = async (req, res) => {
 exports.getEventById = async (req, res) => {
   const id = req.params.id
   try {
-    const storedEvents = await getStoredEvents()
+    const storedEvents = await storage.getEvents()
     const evento = storedEvents.find(ev => ev.id === id)
     if (!evento) return res.status(404).json({ message: "Evento não encontrado" })
     res.status(200).json(evento)
@@ -135,7 +90,7 @@ exports.editEvent = async (req, res) => {
   }
 
   try {
-    const storedEvents = await getStoredEvents()
+    const storedEvents = await storage.getEvents()
     const idx = storedEvents.findIndex(ev => ev.id === id)
 
     if (idx === -1) {
@@ -144,7 +99,7 @@ exports.editEvent = async (req, res) => {
 
     updateEvent.id = id
     storedEvents[idx] = updateEvent
-    await storeEvents(storedEvents)
+    await storage.setEvents(storedEvents)
     res.status(200).json({ message: "Evento editado com sucesso!", event: updateEvent })
     
     } catch (error) {
@@ -160,7 +115,7 @@ exports.deleteEvent = async (req, res) => {
   }
 
   try {
-    const storedEvents = await getStoredEvents()
+    const storedEvents = await storage.getEvents()
     const initialLength = storedEvents.length
 
     const filteredEvents = storedEvents.filter(ev => ev.id !== id)
@@ -169,7 +124,7 @@ exports.deleteEvent = async (req, res) => {
       return res.status(404).json({ message: "Evento não encontrado para remoção." })
     }
 
-  await storeEvents(filteredEvents)
+  await storage.setEvents(filteredEvents)
 
   res.status(200).json({ message: "Evento removido com sucesso!"})
 

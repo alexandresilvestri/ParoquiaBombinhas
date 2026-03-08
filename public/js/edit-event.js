@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   let evento
   try {
-    const res = await fetch(`/admin/events/${id}`)
+    const res = await fetch(`/api/events/${id}`)
     evento = await res.json()
     if (!evento) throw new Error("Evento não encontrado")
   } catch (err) {
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           document.getElementById("editEventDescription").value || "",
       }
       try {
-        const response = await fetch(`/admin/events/${id}`, {
+        const response = await fetch(`/api/events/${id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(updatedEvent),

@@ -21,11 +21,9 @@
   "homepage": "https://github.com/alexandresilvestri/ParoquiaBombinhas",
   "dependencies": {
     "@netlify/blobs": "^10.7.0",
-    "@netlify/functions": "^5.1.2",
     "bootstrap": "^5.3.3",
     "express": "^5.1.0",
     "flatpickr": "^4.6.13",
-    "serverless-http": "^4.0.0",
     "uuid": "^11.1.0"
   },
   "devDependencies": {

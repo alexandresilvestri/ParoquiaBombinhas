@@ -33,13 +33,6 @@
   to = "/views/admin.html"
   status = 200
 
-# API routes — forwarded to the serverless function
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/api"
-  status = 200
-  force = true
-
 # 404 fallback
 [[redirects]]
   from = "/*"

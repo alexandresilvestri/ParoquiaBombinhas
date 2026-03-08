@@ -36,7 +36,7 @@
 # API routes — forwarded to the serverless function
 [[redirects]]
   from = "/api/*"
-  to = "/.netlify/functions/api/:splat"
+  to = "/.netlify/functions/api"
   status = 200
   force = true
 

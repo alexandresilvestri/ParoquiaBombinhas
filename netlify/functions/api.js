@@ -5,8 +5,6 @@ const apiRouter = require("../../src/routes/api")
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-app.use("/", apiRouter)
+app.use("/api", apiRouter)
 
-module.exports.handler = serverless(app, {
-  basePath: "/.netlify/functions/api"
-})
+module.exports.handler = serverless(app)
